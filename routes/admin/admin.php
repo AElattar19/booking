@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
+use App\Http\Controllers\Dashboard\Home\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +16,9 @@ use App\Http\Controllers\Dashboard\Auth\AuthController;
 */
 
  ///////////////////AuthController///////////////////
+ Route::group(['namespace'=>'Dashboard','prefix'=>'Administration','middleware'=>'auth:admin'], function(){
+    Route::get('/', [HomeController::class, 'index'] )->name('admin.home');
+
+
+
+ });

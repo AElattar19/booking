@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Dashboard\Auth;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admins;
 use Validator;
-use Hash;
+
 
 class AuthController extends Controller
 {
@@ -27,17 +28,21 @@ class AuthController extends Controller
     public function dologin(Request $request)
     {
         //
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required',
+
+        
+    $valudation =Request()->validate([
+        'email'=>'required',
+        'password'=>'required'
         ]);
-       // $admin = admin::where('email', $request->email)->first();
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect('/');
-           // return redirect(RouteServiceProvider::Dashboard);
-        } else{
-            return redirect('/login');
+
+        if (Auth::guard('admin')->attempt($valudation)) {
+
+        return redirect(RouteServiceProvider::DASHBOARD);
+    }else{
+            return redirect()->route('admin.auth.login');
+
         }
+
     }
 
     /**
@@ -77,7 +82,6 @@ class AuthController extends Controller
      */
     public function logout(){        
         Auth::guard('admin')->logout();
-        return redirect(RouteServiceProvider::Dashboard);
- 
+        return redirect()->route('admin.auth.login'); 
     }
 }
