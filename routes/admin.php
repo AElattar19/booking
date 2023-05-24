@@ -16,7 +16,7 @@ use App\Http\Controllers\Dashboard\Auth\AuthController;
 
  ///////////////////AuthController///////////////////
 Route::group(['namespace'=>'Dashboard','prefix'=>'Administration', 'middleware'=>'guest'], function(){
-    Route::get('/login', [AuthController::class, 'login'] )->name('admin.auth.login');
+    Route::get('/', [AuthController::class, 'index'] )->name('admin.auth.login');
     Route::post('/attempt', [AuthController::class, 'attempt'] )->name('admin.auth.attempt');
     Route::get('/logout', [AuthController::class, 'logout'] )->name('admin.auth.logout');
 
