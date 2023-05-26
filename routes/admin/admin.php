@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\Home\HomeController;
+use App\Http\Controllers\Dashboard\Admin\AdminController;
+use App\Http\Controllers\Dashboard\Setting\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +20,8 @@ use App\Http\Controllers\Dashboard\Home\HomeController;
  ///////////////////AuthController///////////////////
  Route::group(['namespace'=>'Dashboard','prefix'=>'Administration','middleware'=>'auth:admin'], function(){
     Route::get('/', [HomeController::class, 'index'] )->name('admin.home');
-
+    Route::get('/settings', [SettingController::class, 'index'] )->name('admin.setting');
+    Route::resource('admins', AdminController::class)->middleware('auth:admin');
 
 
  });
