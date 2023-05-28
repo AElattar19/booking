@@ -5,10 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class AdminSeeder extends Seeder
+class UsersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,12 +18,11 @@ class AdminSeeder extends Seeder
     {
         //
         for ($i=0; $i < 100; $i++) { 
-        DB::table('admins')->insert([
-            'name' => Str::random(10),
-            'email' => Str::random(10).'@gmail.com',
-            'password' => Hash::make('123456'),
-        ]);
-        }
-
+            DB::table('users')->insert([
+                'name' => Str::random(10),
+                'email' => Str::random(10).'@gmail.com',
+                'pass' => Hash::make('123456'),
+            ]);
+            }
     }
 }

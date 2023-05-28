@@ -18,10 +18,10 @@ use App\Http\Controllers\Dashboard\Setting\SettingController;
 */
 
  ///////////////////AuthController///////////////////
- Route::group(['namespace'=>'Dashboard','prefix'=>'Administration','middleware'=>'auth:admin'], function(){
+ Route::group(['prefix'=>'Administration','middleware'=>'auth:admin'], function(){
     Route::get('/', [HomeController::class, 'index'] )->name('admin.home');
-    Route::get('/settings', [SettingController::class, 'index'] )->name('admin.setting');
-    Route::resource('admins', AdminController::class)->middleware('auth:admin');
+    Route::resource('/settings', SettingController::class );
+    Route::resource('admins', AdminController::class);
 
 
  });

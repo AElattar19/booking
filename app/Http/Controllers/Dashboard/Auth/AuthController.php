@@ -32,9 +32,10 @@ class AuthController extends Controller
         
     $valudation =Request()->validate([
         'email'=>'required',
-        'password'=>'required'
+        'password'=>'required',
         ]);
-
+        
+        
         if (Auth::guard('admin')->attempt($valudation)) {
 
         return redirect(RouteServiceProvider::DASHBOARD);

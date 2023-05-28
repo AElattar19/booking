@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use Illuminate\Contracts\Auth\Guard; 
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,10 +21,13 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot(Guard $auth): void
     {
         //
         Schema::defaultStringLength(191);
+        View::composer('*', function ($view) use ($auth) {
+            $view->with('currentAuthenticatedUser', $auth->user());
+        });
 
 
     }
