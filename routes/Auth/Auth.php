@@ -16,11 +16,12 @@ use App\Http\Controllers\front\Auth\SocialController;
 |
 */
 
+Route::get('auth/facebook', [SocialController::class, 'facebookRedirect'])->name('auth.facebook');
+Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
 
+route::get('/',[HomeController::class,'index'])->name('/');
+Route::get('/logout', [AuthController::class, 'logout'] )->name('auth.logout');
+//Login and Register
+route::post('login',[AuthController::class,'login'])->name('login');
+route::post('register',[AuthController::class,'register'])->name('register');
 
-Route::group(['prefix'=>'user','middleware'=>'auth:user'], function(){
-    Route::get('/profile', [ProfileController::class, 'index'] )->name('profile.edit');
-    Route::post('/profile', [ProfileController::class, 'update'] )->name('profile.post');
-
-
-});

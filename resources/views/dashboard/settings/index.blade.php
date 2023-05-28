@@ -3,7 +3,7 @@
 @section('body')
 {{-- {{ var_dump($setting) }} --}}
 <br />
-<form class="form-horizontal" action="{{ route('settings.update',$setting) }}" method="POST" enctype="multipart/form-data" >
+<form class="form-horizontal" action="{{ route('settings.update', $setting) }}" method="POST" enctype="multipart/form-data" >
     @csrf
     @method('patch')
     @if ($errors->any())

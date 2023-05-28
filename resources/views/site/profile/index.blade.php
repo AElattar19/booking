@@ -29,7 +29,6 @@
                 <h4 class="gray">Profile Details</h4>
                 <form method="POST" action="{{ route('profile.post',$data) }}" enctype="multipart/form-data" >
                     @csrf
-                    <input value="{{$data->photo}}" type="hidden" name="old_photo">
                 <div class="dashboard-list-box-static">
 
                     <!-- Avatar -->

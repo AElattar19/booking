@@ -17,27 +17,34 @@ class ProfileController extends Controller
         $data = Users::findOrfail($UserId);
         return view('site.profile.index', compact('data'));
     }
-    public function update(Request $request, Users $User)
+    public function update(Request $request, Users $id)
     {
         //
-
+        
+        $UserData = Users::findOrfail($id);
         $valudation =Request()->validate([
             'name'=>['required', 'string', 'max:255'],
             'photo' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'phone'=>['nullable', 'string', 'max:255'],
+            'old_photo'=>['nullable', 'string', 'max:255'],
             'email'=>['nullable', 'string', 'email', 'max:255'],
             'notes'=>'nullable', 'max:255',
-
             ]);
+         
 
-            $User->update($request->except('old_photo')); 
+            $data=$request->except('old_photo','_token');
+            //['columns' => 'newValueForEveryRow']
+            //$UserData->update($data);
+            $data=Users::updateOrCreate($data);
+            
+            //$data->update($request->except('old_photo')); 
             // return view('dashboard.settings.index', compact('setting'));
             if ($request->file('photo')) {
              $file = $request->file('photo');
              $filename = Str::uuid() . $file->getClientOriginalName();
              $file->move(public_path('images/profile'), $filename);
              $old_photo = 'images/profile/' . $request->old_photo;
-             $User->update(['photo' => $filename]);
+             $UserData->update(['photo' => $filename]);
              if($old_photo){
                  unlink($old_photo);
              }
